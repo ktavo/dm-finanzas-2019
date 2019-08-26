@@ -1,23 +1,30 @@
 #R para Kindergarten, sala de 2 años (pero con conceptos no triviales de analisis de datos)
 #en la salita de 2 años NO se usan variables, tampoco sentencia if, loops ni funciones, ni parametros
 
+rm(list=ls())
+
 
 #entorno de ejecucion : PC local
 
 #set working directory
-setwd( "M:\\datasets\\" )
+#A un directorio correspondiente dentro de la máquina...
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/R")
+
 
 
 #opcion nativa en R para cargar un dataset
 
 #cargo los datos, forma estandar
 t0       <-  Sys.time()
-dataset  <-  read.table("201902.txt", sep="\t")
+dataset  <-  read.table("../datasets/201902.txt", sep="\t")
 t1       <-  Sys.time()
 
 #calculo el tiempo de corrida, expresado en segundos
 tcorrida <-  as.numeric(t1 - t0, units = "secs")
-cat("tiempo carga dataset con read.table ",  tcorrida, "\n" )
+tcorridamin <-  as.numeric(tcorrida/60, units = "mins")
+
+cat("tiempo carga dataset con read.table ",  tcorrida, " segundos\n" )
+cat("tiempo carga dataset con read.table ",  tcorridamin, " minutos\n" )
 
 
 #opcion con  libreria  data.table
@@ -29,10 +36,13 @@ library( "data.table" )
 
 #cargo los datos, con la funcion File Read de la libreria data.table
 t0       <-  Sys.time()
-dataset  <-  data.table::fread("201902.txt")
+dataset  <-  data.table::fread("../datasets/201902.txt")
 t1       <-  Sys.time()
-tcorrida <-  as.numeric(t1 - t0, units = "secs")
-cat("tiempo carga dataset con fread ",  tcorrida, "\n" )
+tcorrida2 <-  as.numeric(t1 - t0, units = "secs")
+tcorridamin2 <-  as.numeric(tcorrida2/60, units = "secs")
+
+cat("tiempo carga dataset con fread ",  tcorrida2, " segundos\n" )
+cat("tiempo carga dataset con fread ",  tcorridamin2, " minutos\n" )
 
 
 #se observa una enorme diferencia en el tiempo de carga de un archivo
@@ -50,6 +60,7 @@ cat("tiempo carga dataset con fread ",  tcorrida, "\n" )
 ncol( dataset )
 
 #nombres de las columnas
+#están nombradas de v1 a v170
 colnames( dataset )
 
 #cantidad de registros
@@ -62,8 +73,9 @@ dataset
 summary( dataset )
 
 #si quiero que el summary quede en un archivo
-setwd( "M:\\work\\" )
-sink("summary.txt")
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/work")
+
+sink("summary-kinder.txt")
 summary( dataset )
 sink()
 
@@ -323,7 +335,7 @@ plot( dataset$idx[1:15000],
       ylab="Ganancia Acumulada", 
       pch=19)
 
-lines( dataset$idx[1:15000], dataset$gan_acum[1:15000],   type="l" , col="blue", lwd=2)
+lines( dataset$idx[1:15000], dataset$gan_acum[1:15000],   type="l" , col="green", lwd=2)
 
 
 #------------------------------------------------------------------------------
