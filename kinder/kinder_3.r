@@ -1,4 +1,4 @@
-﻿#R para Kindergarten, sala de 3 años 
+#R para Kindergarten, sala de 3 años 
 #ejecutar linea a linea y ver los resultados
 #lo minimo de vectores, listas y estructuras de control, para sobrevivir a la materia
 
@@ -6,7 +6,7 @@
 #entorno de ejecucion : PC local
 
 #set working directory
-setwd( "M:\\datasets\\" )
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
 
 
 #opcion nativa en R para cargar un dataset
@@ -27,12 +27,12 @@ v2
 v3  <-  rep( 3, 5 )
 v3
 
-#distribucion 
+#distribucion al azar
 v4  <-  runif( 5 )
 v4
 
 
-Notar que v1 y v2 son lo mismo
+#Notar que v1 y v2 son lo mismo
 
 
 #agrego un elemento a un vector
@@ -109,8 +109,9 @@ is.list( alumno )
 
 
 #Otra forma de ver la lista
+#Cargar datos lista
 alumno2  <-  list( 33, "F", "Economia", TRUE, FALSE )
-
+#cargar nombres variables lista
 names( alumno2 ) <- c( "edad", "sexo", "grado", "sabe_R", "sabe_Python" )
 
 alumno2
@@ -119,17 +120,13 @@ alumno2
 #Lista a vector
 
 lprimos <- list(  2,3, 5, 7, 11, 13, 17, 19, 23 )
-
 vprimos <- unlist( lprimos )
-
 
 lprimos
 vprimos
 #------------------------------------------------------------------------------
 #LOOPS
-#por favor, prestar atencion quienes no han programado en su vida
-
-
+#Por favor, prestar atencion quienes no han programado en su vida
 #Aqui vienen distintos loops, que imprimen de diversas formas el resultado
 
 
