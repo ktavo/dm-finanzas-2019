@@ -4,11 +4,14 @@
 
 library("data.table")
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
 
 #cargo los datos
-dataset <- fread("M:\\datasets\\201902.txt")
+dataset  <-  fread("201902.txt")
+
 
 #El universo agrupado por  clase_ternaria
+#Muestra los resultados para Baja+1 Baja+2 y Continua
 ftable(dataset$clase_ternaria)
 
 
@@ -25,6 +28,7 @@ sum( dataset$clase )
 
 
 #Otra forma de ver el universo
+#Muestra igual Baja+1 baja+2 y Continua
 ftable(dataset[  ,clase_ternaria])
 
 #Basico
