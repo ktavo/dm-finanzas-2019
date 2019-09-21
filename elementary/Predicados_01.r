@@ -41,7 +41,9 @@ by(dataset, dataset$clase_ternaria, summary)
 hist(dataset[ ,cliente_edad] )
 boxplot(cliente_edad  ~ clase_ternaria,  data=dataset)
 
+#Menor de 33
 ftable(dataset[ cliente_edad <=33, clase_ternaria])
+#Mayor a 33
 ftable(dataset[ cliente_edad  >33, clase_ternaria])
 
 sum( dataset[ cliente_edad <=33, ganancia] )
