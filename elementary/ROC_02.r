@@ -7,9 +7,10 @@ gc()
 
 library("data.table")
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
 
 #cargo los datos
-dataset <- fread("M:\\datasets\\201902.txt")
+dataset <- fread("201902.txt")
 
 #creo una clase que se 1 cuando es BAJA+2   , y  0 en caso contrario
 #esto me simplifica las cuentas
@@ -72,7 +73,7 @@ pred_graficar  = function(dataset, pcolumna, pvalor )
   vpos <- c( 0, pos_pred,  pos_total )
 
   #grafico
-  lines( vneg, vpos,   type="l" , col="blue", lwd=2)
+  lines( vneg, vpos,   type="l" , col="green", lwd=2)
 
   return( AUC )
 }
@@ -85,7 +86,7 @@ pred_graficar( dataset, "mcuentas_saldo", -100000 )
 pred_graficar( dataset, "mcuentas_saldo",  -10000 )
 pred_graficar( dataset, "mcuentas_saldo",   -2000 )
 pred_graficar( dataset, "mcuentas_saldo",       0 )
-pred_graficar( dataset, "mcuentas_saldo",   10000 )
+pred_graficar( dataset, "mcuentas_saldo",   10000 )#Mejor AUC
 pred_graficar( dataset, "mcuentas_saldo",   50000 )
 pred_graficar( dataset, "mcuentas_saldo",  100000 )
 
@@ -129,8 +130,12 @@ columna_graficar  = function(dataset, pcolumna )
 }
 #----------------------
 
-columna_graficar(  dataset, "mcuentas_saldo"  )
-
+columna_graficar(  dataset, "mcuentas_saldo"  )#AUC_mAX de  0.75
+columna_graficar(  dataset, "cliente_edad"  )
+columna_graficar(  dataset, "Visa_mconsumototal"  )#AUC_mAX de  0.732
+columna_graficar(  dataset, "ttarjeta_visa"  )
+columna_graficar(  dataset, "ttarjeta_master"  )
+columna_graficar(  dataset, "Visa_cuenta_estado"  )
 
 
 
@@ -138,16 +143,27 @@ columna_graficar(  dataset, "mcuentas_saldo"  )
 #cortar mcuentas_saldo en 1275.59
 
 graficar_init()
-
 pred_graficar( dataset, "mcuentas_saldo", 1275.59 )
+columna_graficar(  dataset, "mcuentas_saldo"  )#AUC_mAX de  0.75
 
-columna_graficar(  dataset, "mcuentas_saldo"  )
 
+#cortar Visa_mconsumototal en 863.19
+graficar_init()
+pred_graficar( dataset, "Visa_mconsumototal", 863.19 )
+columna_graficar(  dataset, "Visa_mconsumototal"  )#AUC_mAX de  0.732
 
-#como da la tabla de contingencia
+#cortar cliente_edad en 36
+graficar_init()
+pred_graficar( dataset, "cliente_edad", 36 )
+columna_graficar(  dataset, "cliente_edad"  )#AUC_mAX de  0.527
 
+#como da la tabla de contingencia de mcuentas_saldo
 ftable(dataset[ mcuentas_saldo <= 1275.59, clase_ternaria])
 ftable(dataset[ mcuentas_saldo >  1275.59, clase_ternaria])
+
+#como da la tabla de contingencia de Visa_mconsumototal
+ftable(dataset[ Visa_mconsumototal <= 863.19, clase_ternaria])
+ftable(dataset[ Visa_mconsumototal >  863.19, clase_ternaria])
 
 #-----------------------
 #Desvio,  calcular la ganancia acumulada
@@ -193,7 +209,12 @@ columna_graficar_ganancia  = function(dataset, pcolumna )
 }
 #---------------------
 
-columna_graficar_ganancia( dataset, "mcuentas_saldo"  )
+columna_graficar_ganancia( dataset, "mcuentas_saldo"  )#AUC_mAX de  0.75
+columna_graficar_ganancia( dataset, "cliente_edad"  )
+columna_graficar_ganancia( dataset, "Visa_mconsumototal"  )#AUC_mAX de  0.732
+columna_graficar_ganancia( dataset, "ttarjeta_visa"  )
+columna_graficar_ganancia( dataset, "ttarjeta_master"  )
+columna_graficar_ganancia( dataset, "Visa_cuenta_estado"  )
 
 
 # Y ahora graficando los primeros  n registros
@@ -236,3 +257,6 @@ columna_graficar_ganancia_n  = function(dataset, pcolumna, pcantidad )
 #---------------------
 
 columna_graficar_ganancia_n( dataset, "mcuentas_saldo", 20000  )
+columna_graficar_ganancia_n( dataset, "Visa_mconsumototal", 40000  )
+
+
