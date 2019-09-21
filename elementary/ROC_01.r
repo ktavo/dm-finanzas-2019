@@ -6,9 +6,10 @@ gc()
 
 library("data.table")
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
 
 #cargo los datos
-dataset <- fread("M:\\datasets\\201902.txt")
+dataset <- fread("201902.txt")
 
 #creo una clase que se 1 cuando es BAJA+2   , y  0 en caso contrario
 #esto me simplifica las cuentas
@@ -31,7 +32,7 @@ neg_total <-  sum( 1 - dataset$clase01 )
 #positivos del predicado
 pos_pred    <- sum(  dataset[ (mcuentas_saldo<= -120000) , clase01] )
 
-#positivos del predicado
+#negativos del predicado
 neg_pred    <- sum(  dataset[ (mcuentas_saldo<= -120000) , 1 - clase01] )
 
 #Tener en cuenta que los NA's  no se estan contando en este predicado !
@@ -60,7 +61,7 @@ vneg <- c( 0, neg_pred,  neg_total )
 vpos <- c( 0, pos_pred,  pos_total )
 
 #dibujo la linea
-lines( vneg, vpos,   type="l" , col="blue", lwd=2)
+lines( vneg, vpos,   type="l" , col="green", lwd=2)
 
 
 #Calculo  AUC  Area Under Curve
@@ -106,7 +107,7 @@ pred_graficar  = function(dataset, pcolumna, pvalor )
   vpos <- c( 0, pos_pred,  pos_total )
 
   #dibujo la curva del predicado
-  lines( vneg, vpos,   type="l" , col="blue", lwd=2)
+  lines( vneg, vpos,   type="l" , col="green", lwd=2)
 
   return( AUC )
 }
@@ -117,6 +118,8 @@ pred_graficar( dataset, "mcuentas_saldo", -120000 )
 pred_graficar( dataset, "mcuentas_saldo", 0 )
 pred_graficar( dataset, "mcuentas_saldo", 10000 )
 
+#algunos cortes de la variable  Visa_mconsumototal
+pred_graficar( dataset, "Visa_mconsumototal", 200000 )
 
 #una variable que no esta correlacionada con la clase
 pred_graficar( dataset, "cliente_edad", 40 )
