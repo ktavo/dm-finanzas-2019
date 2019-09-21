@@ -2,11 +2,15 @@
 #Objetivo2:  aplicar a todas las variables
 
 
+#limpio la memoria
+rm(list=ls())
+gc()
+
 library("data.table")
 
 
 #cargo los datos
-dataset <- fread("M:\\datasets\\201902.txt")
+dataset <- fread("201902.txt")
 
 #creo una clase que se 1 cuando es BAJA+2   , y  0 en caso contrario
 #esto me simplifica las cuentas
@@ -72,7 +76,6 @@ columna_graficar  = function(dataset, pcolumna )
                  "valor"   = univar[ which.max( AUC_vector ),  get(pcolumna)],
                  "AUC_max" = max( AUC_vector)
                ) ) 
- 
 }
 #----------------------
 
@@ -81,7 +84,7 @@ columna_graficar(  dataset, "Visa_cuenta_estado"  )
 
 #Los primeros son los = Na's
 #La  gran linea que luego cruza el azar es  = 10
-#La ultima pequeña linea que sube hasta el (1,1)  son los  { 11, 12, 19 }
+#La ultima peque?a linea que sube hasta el (1,1)  son los  { 11, 12, 19 }
 
 
 
@@ -191,6 +194,7 @@ columna_graficar_ganancia_n  = function(dataset, pcolumna, pcantidad )
 #---------------------
 
 columna_graficar_ganancia_n( dataset, "tmovimientos_ultimos90dias", 35000  )
+columna_graficar_ganancia_n( dataset, "mcuentas_saldo", 1275.59  )
 
 
 #Y ahora la tabla de contingencia
