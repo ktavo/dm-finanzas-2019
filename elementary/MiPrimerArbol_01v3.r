@@ -1,10 +1,8 @@
-#Objetivo:  generar un arbol CREANDO una nueva variable que es la combinacion de las dos mas importantes
-
 #Arbol con libreria  rpart
 #se trabaja con constantes para ordenar el codigo fuente
 
 
-#source("M:\\R\\elementary\\MiPrimerArbol_02.r")
+#source("M:\\R\\elementary\\MiPrimerArbol_01.r")
 
 #limpio la memoria
 rm(list=ls())
@@ -27,27 +25,34 @@ kcampos_a_borrar      <-  c(kcampo_id)
 
 
 #Parametros salida
-karchivo_imagen       <-  "..\\work\\arbol_02.jpg"
+karchivo_imagen       <-  "..\\work\\arbol_01v3.jpg"
 
 
 
 #cargo los datos
-dataset <- fread(karchivo_entrada, header=TRUE, sep=kcampos_separador)
+dataset <- fread(karchivo_entrada)
 
 
-#Agrego la nueva variable  MAX(Visa_cuenta_estado, Master_cuenta_estado) 
-dataset[ ,  VisaMaster_cuenta_estado1 :=  pmax(Visa_cuenta_estado, Master_cuenta_estado, na.rm = TRUE)  ]
+#borro las variables que no me interesan
+dataset[ ,  (kcampos_a_borrar) := NULL    ]
 
 
 # generacion del modelo
 formula  <-  formula(paste(kclase_nomcampo, "~ ."))
 
 t0       <-  Sys.time()
-modelo   <-  rpart(formula,   data = dataset,   cp=0.1,   xval=0)
+modelo   <-  rpart(formula,   data = dataset,   cp=0.01,   xval=0)
 t1       <-  Sys.time()
 
 tcorrida <-  as.numeric( t1 - t0, units = "secs")
 print( tcorrida)
+
+
+#variables usadas en el arbol
+frame  <- modelo$frame
+leaves <- frame$var == "<leaf>"
+used   <- unique(frame$var[!leaves])
+
 
 
 #impresion un poco mas elaborada del arbol
