@@ -58,12 +58,12 @@ kganancia_noacierto   <-   -500
 
 fmetrica_ganancia_rpart  = function(probs, clases)
 {
- 
+  
   return( sum(   (probs > kprob_corte ) * 
                    ifelse(clases== kclase_valor_positivo, kganancia_acierto, kganancia_noacierto)   
-             )
-        )
-
+  )
+  )
+  
 }
 #------------------------------------------------------
 #Esta funcion calcula AUC  Area Under Curve  de la Curva ROC
@@ -73,9 +73,9 @@ fmetrica_auc_rpart  = function(probs, clases)
   testing_binaria  <-  as.numeric(clases == kclase_valor_positivo )
   pred             <-  ROCR::prediction( probs, testing_binaria, label.ordering=c(0, 1))
   auc_testing      <-  ROCR::performance(pred,"auc"); 
- 
+  
   return(unlist(auc_testing@y.values))
-
+  
 }
 #------------------------------------------------------
 
@@ -91,9 +91,9 @@ dataset  <- as.data.table(mutate(dataset, idtempo =  row_number()))
 
 set.seed(ksemilla_azar )
 dataset_training <- as.data.table(dataset %>%
-  group_by(!!as.name(kclase_nomcampo)) %>%
-  sample_frac(ktraining_prob) %>%
-  ungroup)
+                                    group_by(!!as.name(kclase_nomcampo)) %>%
+                                    sample_frac(ktraining_prob) %>%
+                                    ungroup)
 dataset_testing  <- as.data.table(anti_join(dataset, dataset_training, by = "idtempo"))
 
 dataset_training[ ,  idtempo := NULL    ] 

@@ -10,6 +10,8 @@
 rm(list=ls())
 gc()
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
+
 
 library("rpart")
 library("data.table")
@@ -19,7 +21,7 @@ library("ROCR")
 
 
 #Parametros entrada
-karchivo_entrada      <-  "M:\\datasets\\201902.txt"
+karchivo_entrada      <-  "201902.txt"
 kcampos_separador     <-  "\t"
 kcampo_id             <-  "numero_de_cliente"
 kclase_nomcampo       <-  "clase_ternaria"
@@ -33,7 +35,7 @@ ksemilla_azar         <-  c(102191, 200177, 410551, 552581, 892237)
 
 
 #constantes de la funcion ganancia del problema
-kprob_corte           <-      0.025
+kprob_corte           <-  0.025
 kganancia_acierto     <-  19500 
 kganancia_noacierto   <-   -500
 
@@ -133,20 +135,45 @@ dataset <- fread(karchivo_entrada, header=TRUE, sep=kcampos_separador)
 dataset[ ,  (kcampos_a_borrar) := NULL    ] 
 
 
+
+t0       <-  Sys.time()
 res1  <-  modelo_rpart_ganancia(dataset, pmaxdepth=4, pminbucket=5, pminsplit=20, pcp=0 )
 cat( "ganancia_promedio:", mean(res1$ganancia),  "\t",  "AUC_promedio:", mean(res1$auc),  "\n") 
+t1       <-  Sys.time()
+tcorrida1 <-  as.numeric( t1 - t0, units = "secs")
 
+t0       <-  Sys.time()
 res2  <-  modelo_rpart_ganancia(dataset, pmaxdepth=8, pminbucket=5, pminsplit=20, pcp=0 )
 cat( "ganancia_promedio:", mean(res2$ganancia),  "\t",  "AUC_promedio:", mean(res2$auc),  "\n") 
+t1       <-  Sys.time()
+tcorrida2 <-  as.numeric( t1 - t0, units = "secs")
 
+t0       <-  Sys.time()
 res3  <-  modelo_rpart_ganancia(dataset, pmaxdepth=10, pminbucket=5, pminsplit=20, pcp=0 )
 cat( "ganancia_promedio:", mean(res3$ganancia),  "\t",  "AUC_promedio:", mean(res3$auc),  "\n") 
+t1       <-  Sys.time()
+tcorrida3 <-  as.numeric( t1 - t0, units = "secs")
 
+t0       <-  Sys.time()
 res4  <-  modelo_rpart_ganancia(dataset, pmaxdepth=12, pminbucket=5, pminsplit=20, pcp=0 )
 cat( "ganancia_promedio:", mean(res4$ganancia),  "\t",  "AUC_promedio:", mean(res4$auc),  "\n") 
+t1       <-  Sys.time()
+tcorrida4 <-  as.numeric( t1 - t0, units = "secs")
 
+t0       <-  Sys.time()
 res5  <-  modelo_rpart_ganancia(dataset, pmaxdepth=14, pminbucket=5, pminsplit=20, pcp=0 )
 cat( "ganancia_promedio:", mean(res5$ganancia),  "\t",  "AUC_promedio:", mean(res5$auc),  "\n") 
+t1       <-  Sys.time()
+tcorrida5 <-  as.numeric( t1 - t0, units = "secs")
+
+tcorrida1
+tcorrida2
+tcorrida3
+tcorrida4
+tcorrida5
+#Hacer Función Corrida con medicioión de tiempo
+
+}
 
 #Por favor notar la gran variabilidad que hay en la ganancia al generar el arbol con distintos parametros
 #Cuales seran los parametros que optimizan la ganancia para rpart en este dataset ?
