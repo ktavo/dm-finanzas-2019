@@ -9,6 +9,8 @@
 rm(list=ls())
 gc()
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
+
 
 library("rpart")
 library("data.table")
@@ -18,7 +20,7 @@ library("ROCR")
 
 
 #Parametros entrada
-karchivo_entrada      <-  "M:\\datasets\\201902.txt"
+karchivo_entrada      <-  "201902.txt"
 kcampos_separador     <-  "\t"
 kcampo_id             <-  "numero_de_cliente"
 kclase_nomcampo       <-  "clase_ternaria"
@@ -31,7 +33,7 @@ ksemilla_azar         <-  c(102191, 200177, 410551, 552581, 892237)
 
 
 #constantes de la funcion ganancia del problema
-kprob_corte           <-      0.025
+kprob_corte           <-  0.025
 kganancia_acierto     <-  19500 
 kganancia_noacierto   <-   -500
 
@@ -82,16 +84,15 @@ modelo_rpart_ganancia = function(dataset )
 
     set.seed(ksemilla_azar[s] )
     dataset_training <- as.data.table(dataset %>%
-  group_by(!!as.name(kclase_nomcampo)) %>%
-  sample_frac(    ktraining_prob) %>%
-  ungroup)
+      group_by(!!as.name(kclase_nomcampo)) %>%
+      sample_frac(    ktraining_prob) %>%
+      ungroup)
     dataset_testing  <- as.data.table(anti_join(dataset, dataset_training, by = "idtempo"))
 
     dataset_training[ ,  idtempo := NULL    ] 
     dataset_testing[ ,  idtempo := NULL    ] 
 
-
-
+    
     # generacion del modelo
     formula  <-  formula(paste(kclase_nomcampo, "~ ."))
 
@@ -113,10 +114,7 @@ modelo_rpart_ganancia = function(dataset )
     auc[s]     <- fmetrica_auc_rpart(testing_prediccion[ ,kclase_valor_positivo],  dataset_testing[ , get(kclase_nomcampo)])
 
   }
-
-
    return( list("ganancia_promedio"=mean(gan),  "vganancias"=gan ,  "vtiempos"= tiempo,  "AUC_promedio"=mean(auc), "vAUCs"=auc) )
-
 }
 #------------------------------------------------------
 
@@ -129,8 +127,12 @@ dataset <- fread(karchivo_entrada, header=TRUE, sep=kcampos_separador)
 #borro las variables que no me interesan
 dataset[ ,  (kcampos_a_borrar) := NULL    ] 
 
-
+t0       <-  Sys.time()
 res  <-  modelo_rpart_ganancia(dataset)
+t1       <-  Sys.time()
+
+tcorrida <-  as.numeric( t1 - t0, units = "secs")
+
 
 print(res)
 

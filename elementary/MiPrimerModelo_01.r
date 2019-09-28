@@ -18,12 +18,18 @@ library("rpart")
 library("data.table")
 library("dplyr")
 library("rpart.plot")
+library("gtools")
+library("bitops")
+library("caTools")
+library("gplots")
 library("ROCR")
 
 
+setwd("E:/UBA/2019-II/DM en Finanzas/Dropbox Prof/datasets")
+
 
 #Parametros entrada
-karchivo_entrada      <-  "M:\\datasets\\201902.txt"
+karchivo_entrada      <-  "201902.txt"
 kcampos_separador     <-  "\t"
 kcampo_id             <-  "numero_de_cliente"
 kclase_nomcampo       <-  "clase_ternaria"
@@ -32,10 +38,11 @@ kcampos_a_borrar      <-  c(kcampo_id)
 
 
 ktraining_prob        <-  0.70
-ksemilla_azar         <- 102191  # poner aqui SU propia semilla aleatoria
+ksemilla_azar         <- 9123437  # poner aqui SU propia semilla aleatoria
+#91237-> 4596667 
 
 #Parametros salida
-karchivo_imagen       <-  "M:\\work\\modelo_01.jpg"
+karchivo_imagen       <-  "..\\work\\modelo_01.jpg"
 
 
 #constantes de la funcion ganancia del problema
