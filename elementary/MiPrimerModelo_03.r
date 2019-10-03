@@ -173,7 +173,7 @@ tcorrida4
 tcorrida5
 #Hacer Función Corrida con medicioión de tiempo
 
-}
+
 
 #Por favor notar la gran variabilidad que hay en la ganancia al generar el arbol con distintos parametros
 #Cuales seran los parametros que optimizan la ganancia para rpart en este dataset ?
