@@ -308,4 +308,47 @@ hacerConteo()
 #--12111---12112---------------------12121--12122-------12221---12222
 
 
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12111", ] )
+dataset[ nodo_arbol=="12111" & mcuenta_corriente_Paquete<=-1726.58,  nodo_arbol:= "121111" ]
+dataset[ nodo_arbol=="121112" & ( mcuenta_corriente_Paquete>-1726.58 | is.na(mcuenta_corriente_Paquete) ) ,  nodo_arbol:= "121112" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12112", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12121", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12122", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12221", ] )
+dataset[ nodo_arbol=="12221" & marketing_coss_selling<=4,  nodo_arbol:= "122211" ]
+dataset[ nodo_arbol=="12221" & ( marketing_coss_selling>4 | is.na(marketing_coss_selling) ) ,  nodo_arbol:= "122212" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="12222", ] )
+dataset[ nodo_arbol=="12222" & mcuenta_corriente_Paquete<=-134881,  nodo_arbol:= "122221" ]
+dataset[ nodo_arbol=="12222" & ( mcuenta_corriente_Paquete>-134881 | is.na(mcuenta_corriente_Paquete) ) ,  nodo_arbol:= "122222" ]
+
+hacerConteo()
+
+#Resultados
+#------------------------------------11
+#--------------------121--------------------------------122
+#-----------1211----------------1212------------1221-------------------1222
+#-----12111------12112---------------------12121-----12122-------12221------12222
+#121111-121112----------------------------------------------122211-122212--122221-122222
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
