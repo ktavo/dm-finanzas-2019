@@ -333,22 +333,82 @@ hacerConteo()
 
 #Resultados
 #------------------------------------11
-#--------------------121--------------------------------122
+#---------------------121----------------------------------122
 #-----------1211----------------1212------------1221-------------------1222
 #-----12111------12112---------------------12121-----12122-------12221------12222
 #121111-121112----------------------------------------------122211-122212--122221-122222
 
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="121111", ] )
+dataset[ nodo_arbol=="121111" & mpagomiscuentas<=1925.36,  nodo_arbol:= "1211111" ]
+dataset[ nodo_arbol=="121111" & ( mpagomiscuentas>1925.36 | is.na(mpagomiscuentas) ) ,  nodo_arbol:= "1211112" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="121112", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="122211", ] )
+dataset[ nodo_arbol=="122211" & numero_de_cliente<=43832058,  nodo_arbol:= "1222111" ]
+dataset[ nodo_arbol=="122211" & ( numero_de_cliente>43832058 | is.na(numero_de_cliente) ) ,  nodo_arbol:= "1222112" ]
+
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="122212", ] )
+dataset[ nodo_arbol=="122212" & mcomisiones_mantenimiento<=-4198.8,  nodo_arbol:= "1222121" ]
+dataset[ nodo_arbol=="122212" & ( mcomisiones_mantenimiento>-4198.8 | is.na(mcomisiones_mantenimiento) ) ,  nodo_arbol:= "1222122" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="122221", ] )
+dataset[ nodo_arbol=="122221" & numero_de_cliente<=50908094,  nodo_arbol:= "1222211" ]
+dataset[ nodo_arbol=="122221" & ( numero_de_cliente>50908094 | is.na(numero_de_cliente) ) ,  nodo_arbol:= "1222212" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="122222", ] )
+#Ganancia 0
+
+
+hacerConteo()
+
+#Resultados
+#--------------------------------------------------------------11
+#---------------------------------------------121-----------------------------------------------------122
+#-----------------------------1211--------------------------1212--------------------------------1221------------------------------1222
+#------------------12111-------------12112--------------------------------------------12121------------12122------------12221-----------12222
+#-----------121111-------121112----------------------------------------------122211------------122212------------122221-------122222
+#------1211111-1211112--------------------------------------------------1222111-1222112---1222121-1222122---1222211-1222212
+
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1211111", ] )
+dataset[ nodo_arbol=="1211111" & Master_msaldodolares<=0,  nodo_arbol:= "12111111" ]
+dataset[ nodo_arbol=="1211111" & ( Master_msaldodolares>0 | is.na(Master_msaldodolares) ) ,  nodo_arbol:= "12111112" ]
+
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1211112", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222111", ] )
+#Ganancia 0
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222112", ] )
+dataset[ nodo_arbol=="1222112" & numero_de_cliente<=46822826,  nodo_arbol:= "12221121" ]
+dataset[ nodo_arbol=="1222112" & ( numero_de_cliente>46822826 | is.na(numero_de_cliente) ) ,  nodo_arbol:= "12221122" ]
+
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222121", ] )
+dataset[ nodo_arbol=="1222121" & mpasivos_margen<=0,  nodo_arbol:= "12221211" ]
+dataset[ nodo_arbol=="1222121" & ( mpasivos_margen>0 | is.na(mpasivos_margen) ) ,  nodo_arbol:= "12221212" ]
 
 
 
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222122", ] )
+dataset[ nodo_arbol=="1222122" & Visa_fechaalta<=19910214,  nodo_arbol:= "12221221" ]
+dataset[ nodo_arbol=="1222122" & ( Visa_fechaalta>19910214 | is.na(Visa_fechaalta) ) ,  nodo_arbol:= "12221222" ]
 
 
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222211", ] )
+dataset[ nodo_arbol=="1222211" & numero_de_cliente<=50908094,  nodo_arbol:= "12222111" ]
+dataset[ nodo_arbol=="1222211" & ( numero_de_cliente>50908094 | is.na(numero_de_cliente) ) ,  nodo_arbol:= "12222112" ]
 
 
+dataset_mejorcorte( dataset[ particion==1 & nodo_arbol=="1222212", ] )
+#Ganancia 0
 
 
+hacerConteo()
 
-
-
-
-
+#Ganancia total +
+#6'758.000
